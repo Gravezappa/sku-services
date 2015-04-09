@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="SkuService" targetNamespace="http://services.skuServices.kblyumkin.com/" xmlns:ns1="http://services.skuServices.kblyumkin.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema xmlns:tns="http://services.skuServices.kblyumkin.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://services.skuServices.kblyumkin.com/">
+  <xs:element name="processSku" type="tns:processSku"/>
+  <xs:element name="processSkuResponse" type="tns:processSkuResponse"/>
+  <xs:element name="searchByDescription" type="tns:searchByDescription"/>
+  <xs:element name="searchByDescriptionResponse" type="tns:searchByDescriptionResponse"/>
+  <xs:complexType name="searchByDescription">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="searchByDescription" type="tns:SearchRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SearchRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="searchDescription" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="searchByDescriptionResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="response" type="tns:SearchResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SearchResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="result" nillable="true" type="tns:Sku"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Sku">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="skuName" type="xs:string"/>
+      <xs:element minOccurs="0" name="skuDescription" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="processSku">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="processSku" type="tns:Sku"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="processSkuResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="response" type="tns:Sku"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InterruptedException" type="tns:InterruptedException"/>
+  <xs:complexType name="InterruptedException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ExecutionException" type="tns:ExecutionException"/>
+  <xs:complexType name="ExecutionException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="processSkuResponse">
+    <wsdl:part name="parameters" element="ns1:processSkuResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="searchByDescription">
+    <wsdl:part name="parameters" element="ns1:searchByDescription">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="searchByDescriptionResponse">
+    <wsdl:part name="parameters" element="ns1:searchByDescriptionResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="processSku">
+    <wsdl:part name="parameters" element="ns1:processSku">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="InterruptedException">
+    <wsdl:part name="InterruptedException" element="ns1:InterruptedException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ExecutionException">
+    <wsdl:part name="ExecutionException" element="ns1:ExecutionException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SkuService">
+    <wsdl:operation name="searchByDescription">
+      <wsdl:input name="searchByDescription" message="ns1:searchByDescription">
+    </wsdl:input>
+      <wsdl:output name="searchByDescriptionResponse" message="ns1:searchByDescriptionResponse">
+    </wsdl:output>
+      <wsdl:fault name="ExecutionException" message="ns1:ExecutionException">
+    </wsdl:fault>
+      <wsdl:fault name="InterruptedException" message="ns1:InterruptedException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="processSku">
+      <wsdl:input name="processSku" message="ns1:processSku">
+    </wsdl:input>
+      <wsdl:output name="processSkuResponse" message="ns1:processSkuResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

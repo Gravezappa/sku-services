@@ -1,0 +1,17 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+
+# Project target&log folders #
+
+/target/*
+/logs/*
+/out/*
+*.log
+
+# IDE files&folders #
+.idea/*
+*.iml
+
