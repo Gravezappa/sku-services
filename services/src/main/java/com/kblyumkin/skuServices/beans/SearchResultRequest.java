@@ -3,21 +3,20 @@ package com.kblyumkin.skuServices.beans;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
-import java.io.Serializable;
 
-@XmlType(name= "SearchResponse")
+@XmlType(name= "SearchResultRequest")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class SearchResponse implements Serializable {
+public class SearchResultRequest {
     private long resultId;
 
-    public SearchResponse() {
+    public SearchResultRequest() {
     }
 
-    public SearchResponse(long resultId) {
+    public SearchResultRequest(Long resultId) {
         this.resultId = resultId;
     }
 
-    public long getResultId() {
+    public Long getResultId() {
         return resultId;
     }
 

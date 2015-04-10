@@ -6,7 +6,7 @@
 
 # Project target&log folders #
 
-/target/*
+**/target/*
 /logs/*
 /out/*
 *.log

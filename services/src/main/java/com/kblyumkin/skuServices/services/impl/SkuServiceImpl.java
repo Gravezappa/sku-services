@@ -1,8 +1,6 @@
 package com.kblyumkin.skuServices.services.impl;
 
-import com.kblyumkin.skuServices.beans.SearchRequest;
-import com.kblyumkin.skuServices.beans.SearchResponse;
-import com.kblyumkin.skuServices.beans.Sku;
+import com.kblyumkin.skuServices.beans.*;
 import com.kblyumkin.skuServices.services.SkuService;
 import com.kblyumkin.skuServices.spaces.SkuManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +27,10 @@ public class SkuServiceImpl implements SkuService {
     @Override
     public SearchResponse searchByDescription(SearchRequest description) throws ExecutionException, InterruptedException {
         return new SearchResponse(manager.searchByDescription(description.getSearchDescription()));
+    }
+
+    @Override
+    public SearchResultResponse getResult(SearchResultRequest request) throws ExecutionException, InterruptedException {
+        return manager.getResult(request.getResultId());
     }
 }

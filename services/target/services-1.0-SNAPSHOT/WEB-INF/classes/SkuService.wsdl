@@ -2,10 +2,40 @@
 <wsdl:definitions name="SkuService" targetNamespace="http://services.skuServices.kblyumkin.com/" xmlns:ns1="http://services.skuServices.kblyumkin.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
 <xs:schema xmlns:tns="http://services.skuServices.kblyumkin.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://services.skuServices.kblyumkin.com/">
+  <xs:element name="getResult" type="tns:getResult"/>
+  <xs:element name="getResultResponse" type="tns:getResultResponse"/>
   <xs:element name="processSku" type="tns:processSku"/>
   <xs:element name="processSkuResponse" type="tns:processSkuResponse"/>
   <xs:element name="searchByDescription" type="tns:searchByDescription"/>
   <xs:element name="searchByDescriptionResponse" type="tns:searchByDescriptionResponse"/>
+  <xs:complexType name="getResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getResult" type="tns:SearchResultRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SearchResultRequest">
+    <xs:sequence>
+      <xs:element name="resultId" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getResultResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="response" type="tns:SearchResultResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SearchResultResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="status" type="tns:status"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="result" nillable="true" type="tns:Sku"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Sku">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="skuName" type="xs:string"/>
+      <xs:element minOccurs="0" name="skuDescription" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="searchByDescription">
     <xs:sequence>
       <xs:element minOccurs="0" name="searchByDescription" type="tns:SearchRequest"/>
@@ -23,14 +53,7 @@
   </xs:complexType>
   <xs:complexType name="SearchResponse">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="result" nillable="true" type="tns:Sku"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="Sku">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="id" type="xs:long"/>
-      <xs:element minOccurs="0" name="skuName" type="xs:string"/>
-      <xs:element minOccurs="0" name="skuDescription" type="xs:string"/>
+      <xs:element name="resultId" type="xs:long"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="processSku">
@@ -43,6 +66,13 @@
       <xs:element minOccurs="0" name="response" type="tns:Sku"/>
     </xs:sequence>
   </xs:complexType>
+  <xs:simpleType name="status">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IN_PROCESS"/>
+      <xs:enumeration value="ERROR"/>
+      <xs:enumeration value="COMPLETED"/>
+    </xs:restriction>
+  </xs:simpleType>
   <xs:element name="InterruptedException" type="tns:InterruptedException"/>
   <xs:complexType name="InterruptedException">
     <xs:sequence>
@@ -65,8 +95,16 @@
     <wsdl:part name="parameters" element="ns1:searchByDescription">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="getResultResponse">
+    <wsdl:part name="parameters" element="ns1:getResultResponse">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="searchByDescriptionResponse">
     <wsdl:part name="parameters" element="ns1:searchByDescriptionResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResult">
+    <wsdl:part name="parameters" element="ns1:getResult">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="processSku">
@@ -82,6 +120,16 @@
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="SkuService">
+    <wsdl:operation name="getResult">
+      <wsdl:input name="getResult" message="ns1:getResult">
+    </wsdl:input>
+      <wsdl:output name="getResultResponse" message="ns1:getResultResponse">
+    </wsdl:output>
+      <wsdl:fault name="ExecutionException" message="ns1:ExecutionException">
+    </wsdl:fault>
+      <wsdl:fault name="InterruptedException" message="ns1:InterruptedException">
+    </wsdl:fault>
+    </wsdl:operation>
     <wsdl:operation name="searchByDescription">
       <wsdl:input name="searchByDescription" message="ns1:searchByDescription">
     </wsdl:input>

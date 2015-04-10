@@ -1,8 +1,6 @@
 package com.kblyumkin.skuServices.services;
 
-import com.kblyumkin.skuServices.beans.SearchRequest;
-import com.kblyumkin.skuServices.beans.SearchResponse;
-import com.kblyumkin.skuServices.beans.Sku;
+import com.kblyumkin.skuServices.beans.*;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -23,4 +21,8 @@ public interface SkuService {
     @WebMethod(action = "#searchByDescription")
     @WebResult(name = "response")
     SearchResponse searchByDescription(@WebParam(name="searchByDescription") SearchRequest description) throws ExecutionException, InterruptedException;
+
+    @WebMethod(action = "#getResult")
+    @WebResult(name = "response")
+    SearchResultResponse getResult(@WebParam(name="getResult") SearchResultRequest request) throws ExecutionException, InterruptedException;
 }
